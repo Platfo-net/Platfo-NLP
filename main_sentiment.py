@@ -116,4 +116,5 @@ def sentiment_product(text):
 
 if __name__ == "__main__":
     text = "محصول خیلی خوب و کاربردی هست ولی قیمتش بالاست"
-    sentiment_product(text)
+    res_dict = {0: "Negative", 1: "Neutral", 2: "Positive"}
+    print(f"Results: {res_dict[sentiment_product(text)]}")
