@@ -1,0 +1,9 @@
+emoji==1.7
+transformers
+hazm
+clean-text[gpl]
+torch
+gdown
+pandas
+uvicorn
+fastapi
