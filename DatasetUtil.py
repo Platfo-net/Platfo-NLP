@@ -1,20 +1,22 @@
 # Import required packages
 
-import collections
-import copy
-import json
-import os
-import re
-
-import hazm
 import numpy as np
 import pandas as pd
+import hazm
+from cleantext import clean
+from tqdm.notebook import tqdm
+import os
+import re
+import json
+import copy
+import collections
+
+from transformers import BertConfig, BertTokenizer
+from transformers import BertModel
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from cleantext import clean
-from tqdm.notebook import tqdm
-from transformers import BertConfig, BertModel, BertTokenizer
 
 
 class Dataset(torch.utils.data.Dataset):

@@ -1,13 +1,13 @@
-import collections
-import copy
-import json
-import os
-import re
-
-import hazm
 import numpy as np
 import pandas as pd
+import hazm
 from cleantext import clean
+
+import os
+import re
+import json
+import copy
+import collections
 
 
 def cleanhtml(raw_html):

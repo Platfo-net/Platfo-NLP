@@ -5,5 +5,7 @@ clean-text[gpl]
 torch
 gdown
 pandas
+langdetect
+finglish
 uvicorn
 fastapi
