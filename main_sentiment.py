@@ -64,10 +64,7 @@ def predict(model, text, tokenizer, max_len=128, batch_size=32):
     prediction_probs = []
     tokenizer = BertTokenizer.from_pretrained(MODEL_NAME_OR_PATH)
     tokens = tokenizer.tokenize(text)
-    print("tokens  are:")
-    print(tokens)
     token_ids = tokenizer.convert_tokens_to_ids(tokens)
-    print(token_ids)
     encoding = tokenizer.encode_plus(
         text,
         max_length=128,
@@ -84,9 +81,7 @@ def predict(model, text, tokenizer, max_len=128, batch_size=32):
     test_data_loader = create_data_loader(
         comments, tokenizer, 128, label_list, batch_size=32
     )
-    print(len(test_data_loader))
     for dl in tqdm(test_data_loader, position=0):
-        print(dl)
         input_ids = dl["input_ids"]
         attention_mask = dl["attention_mask"]
         token_type_ids = dl["token_type_ids"]
@@ -122,9 +117,8 @@ def sentiment_product(text):
         pt_model = torch.load("./bert_sentiment_v1.pt", map_location="cpu")
         tokenizer = BertTokenizer.from_pretrained(MODEL_NAME_OR_PATH)
         p1, p2 = predict(pt_model, text, tokenizer, 128, 32)
-        print(p1[0])
-        print(p2)
-        return p1[0]
+
+        return p1[0], p2
     elif lang == "en":
 
         classifier = pipeline(
@@ -133,23 +127,19 @@ def sentiment_product(text):
             return_all_scores=True,
         )
         p = classifier(text)
-        print(p)
+
         predictions = []
         predictions = [item.get("score") for item in p[0]]
-        print(predictions)
         label = predictions.index(max(predictions))
-        return label
+        return label, np.array([predictions])
 
     else:
         text = f2p(text)
-        print(text)
         text = cleaning(text)
         pt_model = torch.load("./bert_sentiment_v1.pt", map_location="cpu")
         tokenizer = BertTokenizer.from_pretrained(MODEL_NAME_OR_PATH)
         p1, p2 = predict(pt_model, text, tokenizer, 128, 32)
-        print(p1[0])
-        print(p2)
-        return p1[0]
+        return p1[0], p2
 
 
 if __name__ == "__main__":
@@ -165,4 +155,8 @@ if __name__ == "__main__":
     text9 = "its so forbidding!"
     text10 = "hi"
     text11 = "🤬"
-    print(sentiment_product(text1))
+    print(sentiment_product(text9))
+    print("=====")
+    print(sentiment_product(text7))
+    print("=====")
+    print(sentiment_product(text))

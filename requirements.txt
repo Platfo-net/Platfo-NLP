@@ -4,8 +4,11 @@ hazm
 clean-text[gpl]
 torch
 gdown
+matplotlib
+opencv-python
 pandas
 langdetect
 finglish
 uvicorn
 fastapi
+python-multipart
