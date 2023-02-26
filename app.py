@@ -53,7 +53,7 @@ async def create_upload_file(files: List[UploadFile]):
 async def read_item(item_id: str, q: Union[str, None] = None):
     res_dict = {0: "Negative", 1: "Neutral", 2: "Positive"}
     if q:
-        results = sentiment_product(str(q))
+        results = sentiment_product(str(q))[0]
         return {"Sentiment": res_dict[results]}
 
     return {"item_id": item_id}
